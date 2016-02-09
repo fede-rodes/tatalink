@@ -33,3 +33,10 @@ FlowRouter.route('/comments', {
       BlazeLayout.render('appBody', {template: 'comments'});
    }
 });
+/* ADMIN */
+FlowRouter.route('/admin', {
+   name: 'admin',
+   action() {
+      BlazeLayout.render('appBody', {template: 'admin'});
+   }
+});

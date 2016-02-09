@@ -79,15 +79,9 @@ Template.voteFormSelect.helpers({
          var disabled = _.indexOf(selected, player._id) !== -1 ? 'disabled' : '';
          _.extend(player, {disabled: disabled});
       });
-      
+
       return players; // [{_id, name, status, css}]
    }
-
-   /*
-   players: function (situation) { // reactive source
-      return Template.instance()['players_' + situation].get(); // [{_id, name, status}]
-   }
-   */
 });
 
 //============================================================================//
@@ -240,7 +234,7 @@ Template.chart.onRendered(function() {
          data.push([
             player.name,
             parseInt((totalVotes === 0) ? 0 : (100 * (player.votes / totalVotes)).toPrecision(4), 10),
-            //parseInt(player[situation]),
+            //parseInt(player.votes),
          ]);
       });
 
