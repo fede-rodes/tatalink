@@ -1,0 +1,141 @@
+/* SCORE */
+.score {
+   text-align: center;
+   margin-top: 50px;
+}
+.score > table {
+   border: 1px solid black;
+   max-width: 500px;
+   font-size: 25px;
+   margin-left: auto;
+   margin-right: auto;
+}
+.score > table > tr > th,td {
+   padding: 10px;
+}
+.score > table > tr > td {
+   font-size: 40px;
+}
+
+/* HOW IT WORKS */
+.howItWorks {
+   margin-top: 50px;
+   font-size: 18px;
+}
+
+/* SHARE BUTTONS */
+.shareButtons {
+   margin-top: 50px;
+   text-align: center;
+}
+.shareButtons .btn {
+   margin: 5px 10px;
+}
+
+/* STATS */
+/*.stats {
+   font-size: 13px;
+   line-height: 1.33333;
+}*/
+
+/* BUTTONS */
+/*.stats button.goingIn.selected {
+   color: white;
+   background-color: green;
+}
+.stats button.goingOut.selected {
+   color: white;
+   background-color: red;
+}*/
+
+/* BUTTONS */
+/*.statsMVP {
+   margin-top: 50px;
+}
+.statsMVP button.mvp.selected {
+   color: black;
+   background-color: yellow;
+}*/
+
+
+/* BUTTONS */
+/*.buttons {
+   margin-top: 50px;
+}
+.buttons button.goingIn.selected {
+   color: white;
+   background-color: green;
+}
+.buttons button.goingOut.selected {
+   color: white;
+   background-color: red;
+}*/
+
+
+/* FOOTER */
+footer {
+   margin-top: 30px;
+   margin-bottom: 30px;
+   font-size: 18px;
+}
+footer a {
+   margin: 10px;
+   font-size: 18px;
+}
+footer .twitterBtn {
+   color: white;
+   background-color: #55ACEE;
+}
+footer .facebookBtn {
+   color: white;
+   background-color: blue;
+}
+footer .githubBtn {
+   color: white;
+   background-color: black;
+}
+
+/* CHAT ROOM */
+.chat {
+   min-height: 200px;
+   /*overflow-y: auto;*/
+   margin-top: 50px;
+}
+.chatRoom {
+   height: 300px;
+   border: 1px solid silver;
+   overflow-y: auto;
+   margin-bottom: 20px;
+   background-color: #F0F0F0;
+   /*color: green;*/
+   padding: 10px;
+   font-size: 18px;
+}
+.red {
+   color: red;
+}
+.black {
+   color: black;
+}
+.yellow {
+   color: yellow;
+}
+.green {
+   color: green;
+}
+.pink {
+   color: pink;
+}
+.blue {
+   color: #FF3333;
+}
+.white {
+   color: white;
+}
+
+.full-width {
+   width: 100%;
+}
+.display-block {
+   display: inline-block;
+}

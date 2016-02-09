@@ -1,0 +1,22 @@
+<head>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link href='https://fonts.googleapis.com/css?family=Oswald|Anton|Francois+One|Sigmar+One|Luckiest+Guy|Boogaloo|Homenaje|Lilita+One|Slackey|Carter+One|Londrina+Solid|Bowlby+One+SC' rel='stylesheet' type='text/css'>
+   <title>TataLink</title>
+</head>
+<!-- <body> tag is defined by default by BlazeLayout.render() -->
+
+<!-- APP BODY TEMPLATE -->
+<template name="appBody">
+   {{#if appReady}}
+      <div class="container app-width">
+         <div class="row black-bg">
+            <div class="col-xs-12">
+               {{> Template.dynamic template=template}}
+               {{> footer}}
+            </div>
+         </div>
+      </div>
+   {{else}}
+      {{> spinner}}
+   {{/if}}
+</template>

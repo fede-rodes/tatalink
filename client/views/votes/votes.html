@@ -1,0 +1,165 @@
+<!--
+TEMPLATE-NAME: VOTES
+REQ. SUBS: NONE
+USAGE: {{> votes}}
+-->
+<template name="votes">
+   <h2 class="text-center">Ayudalo al Tata</h2>
+   {{> voteForm}}
+   {{> remainingVotes}}
+   <hr>
+   {{> votesHistory}}
+   <hr>
+   {{> stats}}
+</template>
+
+<!--
+TEMPLATE-NAME: VOTES FORM
+REQ. SUBS: 'curUser', 'playersList', 'stats'
+USAGE: {{> voteForm}}
+-->
+<template name="voteForm">
+   <form>
+      <div class="row">
+	      <div class="col-xs-6">
+            {{> voteFormSelect situation="goingOut"}}
+         </div>
+         <div class="col-xs-6">
+            {{> voteFormSelect situation="goingIn"}}
+         </div>
+      </div>
+      <button type="submit" class="btn btn-lg btn-danger center-block">Realizar Cambio</button>
+   </form>
+</template>
+
+<!--
+TEMPLATE-NAME: VOTE FORM SELECT
+REQ. SUBS: 'curUser', 'playersList', 'stats'
+USAGE: {{> voteFormSelect situation="goingOut/goingIn"}}
+-->
+<template name="voteFormSelect">
+   <div class="form-group">
+	   <label for="{{this.situation}}">{{label this.situation}}</label>
+	   <select class="form-control input-lg" name="{{this.situation}}" id="{{this.situation}}">
+         {{#each player in (players this.situation)}}
+   	      {{> playerOption playerId=player._id playerName=player.name}}
+         {{/each}}
+      </select>
+   </div>
+</template>
+
+<!--
+TEMPLATE-NAME: PLAYER OPTION
+REQ. SUBS: NONE
+USAGE: {{> playerOption playerId="String" playerName="String" situation="goingIn/goingOut"}}
+-->
+<template name="playerOption">
+   <option value="{{this.playerId}}">{{{this.playerName}}}</option>
+</template>
+
+<!--
+TEMPLATE-NAME: REMAINING VOTES
+REQ. SUBS: 'curUser'
+USAGE: {{> remainingVotes}}
+-->
+<template name="remainingVotes">
+   <h4 class="text-center votes-counter">Te queda{{#if plural}}n{{/if}} {{remaining}} cambio{{#if plural}}s{{/if}}</h4>
+</template>
+
+<!--
+TEMPLATE-NAME: VOTES HISTORY
+REQ. SUBS: 'curUser'
+USAGE: {{> votesHistory}}
+-->
+<template name="votesHistory">
+   <h4>Tus cambios:</h4>
+   <ul class="list-unstyled">
+      {{#each vote in votes}}
+         <li>
+            {{> voteCard vote=vote}}
+         </li>
+      {{/each}}
+   </ul>
+</template>
+
+<!--
+TEMPLATE-NAME: VOTE CARD
+REQ. SUBS: 'playersList'
+USAGE: {{> voteCard vote=Obj}}, where Obj = {goingOut, goingIn, date}
+-->
+<template name="voteCard">
+   <span class="display-block"><i class="fa fa-arrow-left red" title="Sale"></i> {{{getPlayerName this.vote.goingOut}}}</span> <span class="display-block"><i class="fa fa-arrow-right green" title="Entra"></i> {{getPlayerName this.vote.goingIn}}</span> <span class="votes-counter display-block">({{formatDateTime this.vote.date}})</span>
+</template>
+
+<!--
+TEMPLATE-NAME: STATS
+REQ. SUBS: NONE
+USAGE: {{> stats}}
+-->
+<template name="stats">
+   <h4>Estadisticas</h4>
+   {{> chart situation="goingOut"}}
+   <br>
+   {{> chart situation="goingIn"}}
+</template>
+
+<!--
+TEMPLATE-NAME: CHART
+REQ. SUBS: 'stats', 'playersList'
+USAGE: {{> chart situation="goingIn/goingOut"}}
+-->
+<template name="chart">
+   <div id="chart-container-{{this.situation}}" style="min-width: 210px; height: 300px;"></div>
+</template>
+
+
+<!--
+TEMPLATE-NAME: VOTES
+REQ. SUBS: NONE
+USAGE: {{> votes}}
+-->
+<!--<template name="votes">
+   <div class="stats">
+      <h2 class="text-center">AYUDALO AL TATA</h2>
+      <div class="row">
+         <div class="col-xs-6">
+            {{> players situation='goingOut'}} // players on the field
+         </div>
+         <div class="col-xs-6">
+            {{> players situation='goingIn'}} // players on the bench
+         </div>
+      </div>
+   </div>
+</template>-->
+
+
+<!--
+TEMPLATE-NAME: PLAYERS
+REQ. SUBS: 'curUser', 'playersList', 'stats'
+USAGE: {{> players situation="goingIn/goingOut"}}
+-->
+<!--<template name="players">
+   <h4 class="text-center">{{title this.situation}} a (<span class="blue">{{totalVotes this.situation}}</span> votos):</h4>
+   <table class="full-width">
+      {{#each player in (players this.situation)}}
+         <tr>
+            <td class="buttons-padding">
+               {{> button playerId=player._id playerName=player.name percentage=player.percentage selected=player.selected situation=player.situation}}
+            </td>
+         </tr>
+      {{/each}}
+   </table>
+</template>-->
+
+
+<!--
+TEMPLATE-NAME: BUTTON
+REQ. SUBS: NONE
+USAGE: {{> button playerId="String" playerName="String" percentage="Number" selected="Class" situation="goingIn/goingOut"}}
+-->
+<!--<template name="button">
+   <button type="button" id="{{this.playerId}}" class="btn btn-default {{this.situation}} {{this.selected}} center-block button-width">
+      <span class="player-name">{{{this.playerName}}}</span>
+      <span class="player-percentage {{#if isSelected}}white-font{{/if}}">{{this.percentage}}%</span>
+   </button>
+</template>-->

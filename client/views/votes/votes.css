@@ -1,0 +1,22 @@
+.buttons-padding {
+   padding: 10px 0px;
+}
+.button-width {
+   width: 120px;
+}
+.player-name {
+   display: block;
+   font-size: 13px;
+}
+.player-percentage {
+   font-family: sans-serif;
+   font-weight: 500;
+   font-size: 12px;
+}
+
+.votes-counter {
+   font-size: 12px;
+   font-family: sans-serif;
+   font-weight: 500;
+   color: #909090;   
+}
