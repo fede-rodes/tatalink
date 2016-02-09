@@ -3,5 +3,5 @@
 //======================================================================
 Meteor.publish('playersList', function() {
 
-	return [Players.find()];
+	return Players.find({});
 });

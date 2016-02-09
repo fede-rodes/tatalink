@@ -1,110 +1,55 @@
 //======================================================================
-// PRE-POPULATE PLAYERS LIST:
+// PRE-POPULATE DATABASE:
 //======================================================================
 Meteor.startup(function() {
 
-   if (Players.find().count() !== 0) {
-      return;
+   // Pre-populate Players collection
+   if (!!Players && Players instanceof Mongo.Collection && Players.find().count() === 0) {
+
+      console.log('PRE-POPULATE PLAYERS COLLECTION');
+
+      var players = [
+         {name: 'ROMERO', avatar: 'romero.jpg', status: 'playing'},
+         {name: 'GUZMAN', avatar: 'guzman.jpg', status: 'substitute'},
+         {name: 'ANDUJAR', avatar: 'andujar.jpg', status: 'substitute'},
+         {name: 'RONCAGLIA', avatar: 'roncaglia.jpg', status: 'substitute'},
+         {name: 'GARAY', avatar: 'garay.jpg', status: 'playing'},
+         {name: 'OTAMENDI', avatar: 'otamendi.jpg', status: 'playing'},
+         {name: 'ROJO', avatar: 'rojo.jpg', status: 'playing'},
+         {name: 'ZABALETA', avatar: 'zabaleta.jpg', status: 'playing'},
+         {name: 'DEMICHELIS', avatar: 'demichelis.jpg', status: 'substitute'},
+         {name: 'CASCO', avatar: 'casco.jpg', status: 'substitute'},
+         {name: 'BANEGA', avatar: 'banega.jpg', status: 'substitute'},
+         {name: 'MASCHERANO', avatar: 'mascherano.jpg', status: 'playing'},
+         {name: 'BIGLIA', avatar: 'biglia.jpg', status: 'playing'},
+         {name: 'GAGO', avatar: 'gago.jpg', status: 'substitute'},
+         {name: 'PASTORE', avatar: 'pastore.jpg', status: 'playing'},
+         {name: 'PEREYRA', avatar: 'pereyra.jpg', status: 'substitute'},
+         {name: 'LAMELA', avatar: 'lamela.jpg', status: 'substitute'},
+         {name: 'DI MARIA', avatar: 'di_maria.jpg', status: 'playing'},
+         {name: 'LAVEZZI', avatar: 'lavezzi.jpg', status: 'substitute'},
+         {name: 'MESSI', avatar: 'messi.jpg', status: 'playing'},
+         {name: 'TEVEZ', avatar: 'tevez.jpg', status: 'substitute'},
+         {name: 'AGÜERO', avatar: 'aguero.jpg', status: 'playing'},
+         {name: 'HIGUAIN', avatar: 'higuain.jpg', status: 'substitute'}
+      ];
+
+      _.each(players, function(player) {
+         Players.insert(player);
+      });
    }
 
-   console.log('PRE-POPULATE PLAYERS. Players.find().count(): ' + Players.find().count());
-   var players = [
-      {name: 'ROMERO', avatar: 'romero.jpg', goingOut: 0, goingIn: 0, status: 'playing', forMVP: true, votesMVP: 0},
-      {name: 'GUZMAN', avatar: 'guzman.jpg', goingOut: 0, goingIn: 0, status: 'substitute', forMVP: false, votesMVP: 0},
-      {name: 'ANDUJAR', avatar: 'andujar.jpg', goingOut: 0, goingIn: 0, status: 'substitute', forMVP: false, votesMVP: 0},
-      {name: 'RONCAGLIA', avatar: 'roncaglia.jpg', goingOut: 0, goingIn: 0, status: 'substitute', forMVP: false, votesMVP: 0},
-      {name: 'GARAY', avatar: 'garay.jpg', goingOut: 0, goingIn: 0, status: 'playing', forMVP: true, votesMVP: 0},
-      {name: 'OTAMENDI', avatar: 'otamendi.jpg', goingOut: 0, goingIn: 0, status: 'playing', forMVP: true, votesMVP: 0},
-      {name: 'ROJO', avatar: 'rojo.jpg', goingOut: 0, goingIn: 0, status: 'playing', forMVP: true, votesMVP: 0},
-      {name: 'ZABALETA', avatar: 'zabaleta.jpg', goingOut: 0, goingIn: 0, status: 'playing', forMVP: true, votesMVP: 0},
-      {name: 'DEMICHELIS', avatar: 'demichelis.jpg', goingOut: 0, goingIn: 0, status: 'substitute', forMVP: false, votesMVP: 0},
-      {name: 'CASCO', avatar: 'casco.jpg', goingOut: 0, goingIn: 0, status: 'substitute', forMVP: false, votesMVP: 0},
-      {name: 'BANEGA', avatar: 'banega.jpg', goingOut: 0, goingIn: 0, status: 'substitute', forMVP: false, votesMVP: 0},
-      {name: 'MASCHERANO', avatar: 'mascherano.jpg', goingOut: 0, goingIn: 0, status: 'playing', forMVP: true, votesMVP: 0},
-      {name: 'BIGLIA', avatar: 'biglia.jpg', goingOut: 0, goingIn: 0, status: 'playing', forMVP: true, votesMVP: 0},
-      {name: 'GAGO', avatar: 'gago.jpg', goingOut: 0, goingIn: 0, status: 'substitute', forMVP: false, votesMVP: 0},
-      {name: 'PASTORE', avatar: 'pastore.jpg', goingOut: 0, goingIn: 0, status: 'playing', forMVP: true, votesMVP: 0},
-      {name: 'PEREYRA', avatar: 'pereyra.jpg', goingOut: 0, goingIn: 0, status: 'substitute', forMVP: false, votesMVP: 0},
-      {name: 'LAMELA', avatar: 'lamela.jpg', goingOut: 0, goingIn: 0, status: 'substitute', forMVP: false, votesMVP: 0},
-      {name: 'DI MARIA', avatar: 'di_maria.jpg', goingOut: 0, goingIn: 0, status: 'playing', forMVP: true, votesMVP: 0},
-      {name: 'LAVEZZI', avatar: 'lavezzi.jpg', goingOut: 0, goingIn: 0, status: 'substitute', forMVP: false, votesMVP: 0},
-      {name: 'MESSI', avatar: 'messi.jpg', goingOut: 0, goingIn: 0, status: 'playing', forMVP: true, votesMVP: 0},
-      {name: 'TEVEZ', avatar: 'tevez.jpg', goingOut: 0, goingIn: 0, status: 'substitute', forMVP: false, votesMVP: 0},
-      {name: 'AGÜERO', avatar: 'aguero.jpg', goingOut: 0, goingIn: 0, status: 'playing', forMVP: true, votesMVP: 0},
-      {name: 'HIGUAIN', avatar: 'higuain.jpg', goingOut: 0, goingIn: 0, status: 'substitute', forMVP: false, votesMVP: 0}
-   ];
+   // TODO: replace Stats and Score collections with Counter collection
+   // Pre-populate Stats collection
+   if (!!Stats && Stats instanceof Mongo.Collection && Stats.find().count() === 0) {
+      console.log('PRE-POPULATE STATS COLLECTION');
+      Stats.insert({totalVotes: 0});
+   }
 
-   _.each(players, function(player) {
-      Players.insert(player);
-   });
+   // Pre-populate Score collection
+   if (!!Score && Score instanceof Mongo.Collection && Score.find().count() === 0) {
+      console.log('PRE-POPULATE SCORE COLLECTION');
+      Score.insert({argentina: 0, rival: 0});
+   }
 
 });
-
-Meteor.startup(function() {
-
-   console.log('!!Stats: ', !!Stats);
-   if (Stats.find().count() !== 0) {
-      return;
-   }
-
-   console.log('PRE-POPULATE STATS');
-   var stats = {totalVotes: 0};
-
-   Stats.insert(stats);
-   console.log('Stats.find().count(): ', Stats.find().count());
-
-});
-
-
-Meteor.startup(function() {
-
-   if (Score.find().count() !== 0) {
-      return;
-   }
-
-   console.log('PRE-POPULATE SCORE');
-   var score = {argentina: 0, rival: 0};
-
-   Score.insert(score);
-
-});
-
-
-/*Meteor.startup(function() {
-
-   if (Messages.find().count() !== 0) {
-      return;
-   }
-
-   console.log('PRE-POPULATE MESSAGES');
-   var message = {text: 'Arranc&oacute; el TataLink! Vamos Argentina!!!'};
-
-   Messages.insert(message);
-
-});*/
-
-
-//======================================================================
-// PRE-POPULATE USER VOTES:
-//======================================================================
-/*Meteor.startup(function() {
-
-   var currentUserId = Meteor.userId;
-   if (!currentUserId) {
-      return;
-   }
-
-   // Fetch current user
-   var currentUser = Meteor.users.findOne(currentUserId);
-
-   if (!currentUser) {
-      console.log('not current user');
-      return;
-   }
-
-   if (_.isUndefined(currentUser.votes)) {
-      console.log('adding votes to user');
-      Meteor.users.update({_id: currentUserId}, {$addToSet: {votes: {'goingIn': [], 'goingOut': []}}});
-   }
-
-});*/

@@ -12,5 +12,5 @@ Meteor.publish('curUser', function() {
         return;
     }
 
-	return [Meteor.users.find(this.userId, {fields: {profile: 1, votes: 1, _id: 1}})];
+	return Meteor.users.find(this.userId, {fields: {profile: 1, votes: 1, _id: 1}});
 });

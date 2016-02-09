@@ -20,12 +20,12 @@ FlowRouter.route('/votes', {
    }
 });
 /* HASHTAGS */
-FlowRouter.route('/hashtags', {
+/*FlowRouter.route('/hashtags', {
    name: 'hashtags',
    action() {
       BlazeLayout.render('appBody', {template: 'hashtags'});
    }
-});
+});*/
 /* COMMENTS */
 FlowRouter.route('/comments', {
    name: 'comments',

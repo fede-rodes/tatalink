@@ -42,7 +42,7 @@ USAGE: {{> voteFormSelect situation="goingOut/goingIn"}}
 	   <label for="{{this.situation}}">{{label this.situation}}</label>
 	   <select class="form-control input-lg" name="{{this.situation}}" id="{{this.situation}}">
          {{#each player in (players this.situation)}}
-   	      {{> playerOption playerId=player._id playerName=player.name}}
+   	      {{> playerOption playerId=player._id playerName=player.name disabled=player.disabled}}
          {{/each}}
       </select>
    </div>
@@ -51,10 +51,10 @@ USAGE: {{> voteFormSelect situation="goingOut/goingIn"}}
 <!--
 TEMPLATE-NAME: PLAYER OPTION
 REQ. SUBS: NONE
-USAGE: {{> playerOption playerId="String" playerName="String" situation="goingIn/goingOut"}}
+USAGE: {{> playerOption playerId="String" playerName="String" disabled="'disabled'/''"}}
 -->
 <template name="playerOption">
-   <option value="{{this.playerId}}">{{{this.playerName}}}</option>
+   <option value="{{this.playerId}}" {{this.disabled}}>{{{this.playerName}}}</option>
 </template>
 
 <!--

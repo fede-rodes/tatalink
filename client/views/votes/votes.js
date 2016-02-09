@@ -28,25 +28,21 @@ Template.voteForm.events({
 //============================================================================//
 // VOTES FORM SELECT TEMPLATE
 //============================================================================//
-// TODO: remove selected players
+// TODO: css line-through for selected players
 Template.voteFormSelect.onCreated(function() {
 
    // Current template instance
    var instance = this;
 
-   // Declare reactive vars
-   //instance.totalVotes_goingOut = new ReactiveVar(0);
-   //instance.totalVotes_goingIn = new ReactiveVar(0);
+   // Initialize reactive vars
    instance.totalVotes = new ReactiveVar(0);
    instance.players_goingOut = new ReactiveVar([]);
    instance.players_goingIn = new ReactiveVar([]);
-   instance.userVotes = new ReactiveVar({});
+   instance.userVotes = new ReactiveVar([]);
 
    // Set reactive vars
    instance.autorun(function() {
       const stats = Stats.findOne({});
-      //instance.totalVotes_goingOut.set(stats.votesGoingOut);
-      //instance.totalVotes_goingIn.set(stats.votesGoingIn);
       instance.totalVotes.set(stats.totalVotes);
    });
 
@@ -59,8 +55,10 @@ Template.voteFormSelect.onCreated(function() {
 
    // Set reactive vars
    instance.autorun(function() {
-      const curUser = Meteor.users.findOne({_id: Meteor.userId()});
-      instance.userVotes.set(curUser.votes);
+      if (Meteor.user()) {
+         const curUser = Meteor.users.findOne({_id: Meteor.userId()});
+         instance.userVotes.set(curUser.votes);
+      }
    });
 });
 //----------------------------------------------------------------------------//
@@ -72,8 +70,24 @@ Template.voteFormSelect.helpers({
    },
 
    players: function (situation) { // reactive source
+      var players = Template.instance()['players_' + situation].get();
+      var userVotes = Template.instance().userVotes.get(); // [{goingOut, goingIn, date}]
+      var selected = _.pluck(userVotes, situation); // [playerIds]
+
+      // Extend player object by adding css class 'selected' or ''
+      _.each(players, function(player) {
+         var disabled = _.indexOf(selected, player._id) !== -1 ? 'disabled' : '';
+         _.extend(player, {disabled: disabled});
+      });
+      
+      return players; // [{_id, name, status, css}]
+   }
+
+   /*
+   players: function (situation) { // reactive source
       return Template.instance()['players_' + situation].get(); // [{_id, name, status}]
    }
+   */
 });
 
 //============================================================================//
@@ -225,7 +239,7 @@ Template.chart.onRendered(function() {
       _.each(players, function(player) {
          data.push([
             player.name,
-            parseInt((totalVotes === 0) ? 0 : (100 * (player[situation] / totalVotes)).toPrecision(4), 10),
+            parseInt((totalVotes === 0) ? 0 : (100 * (player.votes / totalVotes)).toPrecision(4), 10),
             //parseInt(player[situation]),
          ]);
       });
